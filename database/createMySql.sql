@@ -6,9 +6,11 @@ CREATE TABLE users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(50),
   last_name VARCHAR(50),
+  username VARCHAR(50),
   email VARCHAR(100),
   password_hash CHAR(64),
-  created_at TIMESTAMP
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP
 );
 
 CREATE TABLE task (
@@ -18,6 +20,7 @@ CREATE TABLE task (
   description TEXT,
   due_date DATETIME,
   created_at TIMESTAMP,
+  updated_at TIMESTAMP,
   completed BOOLEAN,
   priority TINYINT,
   category_id INT,
