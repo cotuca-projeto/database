@@ -1,41 +1,58 @@
--- Criação de um esquema chamado "taskFlow" para organizar as tabelas
-CREATE SCHEMA taskFlow;
-
--- Tabela de informações do usuário
-CREATE TABLE taskFlow.users (
-  user_id INT PRIMARY KEY NOT NULL,     -- Identificador único do usuário
-  first_name VARCHAR(50) NOT NULL,      -- Nome do usuário (não pode ser nulo)
-  last_name VARCHAR(50) NOT NULL,       -- Sobrenome do usuário (não pode ser nulo)
-  username VARCHAR(50) NOT NULL,   
-  email VARCHAR(100) NOT NULL,          -- Endereço de email do usuário (não pode ser nulo)
-  password_hash CHAR(64) NOT NULL,     -- Hash da senha do usuário (não pode ser nulo)
-  created_at DATETIME NOT NULL,         -- Data e hora de criação do usuário (não pode ser nulo)
-  updated_at DATETIME NOT NULL,
-  profle_image IMAGE
+-- Tabela users
+CREATE TABLE taskflow.users (
+  user_id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  username VARCHAR(50) UNIQUE  NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password_hash CHAR(64) NOT NULL,
+  profile_image IMAGE,
+ 
 );
 
--- Tabela de informações de categorias
-CREATE TABLE taskFlow.category (
-  category_id INT PRIMARY KEY NOT NULL,  -- Identificador único da categoria
-  user_id INT NOT NULL,                  -- ID do usuário proprietário da categoria (não pode ser nulo)
-  name VARCHAR(50) NOT NULL,             -- Nome da categoria (não pode ser nulo)
-  FOREIGN KEY (user_id) REFERENCES taskFlow.users(user_id) -- Chave estrangeira para o usuário
+-- Tabela category
+CREATE TABLE taskflow.category (
+  category_id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  user_id INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+
+  CONSTRAINT FK_CategoryUser FOREIGN KEY (user_id) 
+    REFERENCES taskflow.users (user_id) ON DELETE CASCADE
 );
 
--- Tabela de informações de tarefas
-CREATE TABLE taskFlow.task (
-  task_id INT PRIMARY KEY NOT NULL,     -- Identificador único da tarefa
-  user_id INT NOT NULL,                -- ID do usuário responsável pela tarefa (não pode ser nulo)
-  title VARCHAR(100) NOT NULL,         -- Título da tarefa (não pode ser nulo)
-  description VARCHAR(MAX),            -- Descrição da tarefa
-  due_date DATETIME2 NOT NULL,         -- Data e hora de vencimento da tarefa (não pode ser nulo)
-  created_at DATETIME2 NOT NULL,       -- Data e hora de criação da tarefa (não pode ser nulo)
-  updated_at DATETIME NOT NULL,
-  completed BIT NOT NULL,             -- Indicador de tarefa concluída (não pode ser nulo)
-  priority TINYINT NOT NULL,          -- Prioridade da tarefa (não pode ser nulo)
-  category_id INT,                    -- ID da categoria à qual a tarefa pertence (pode ser nulo)
-  FOREIGN KEY (user_id) REFERENCES taskFlow.users(user_id),       -- Chave estrangeira para o usuário
-  FOREIGN KEY (category_id) REFERENCES taskFlow.category(category_id) -- Chave estrangeira para a categoria
+-- Tabela task
+CREATE TABLE taskflow.task (
+  task_id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  user_id INT NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  description VARCHAR(MAX),
+  due_date DATETIME, -- Se o usuário quiser definir uma data limite para completar a task
+  completed CHAR DEFAULT('N') NOT NULL, -- Sempre será 'N' até que seja completado(update)
+  priority TINYINT DEFAULT(0) NOT NULL, -- Se for 1 terá prioridade na tela
+  category_id INT,
+
+  CONSTRAINT FK_TaskCategory FOREIGN KEY (category_id) 
+    REFERENCES taskflow.category (category_id) ON DELETE CASCADE,
+  CONSTRAINT FK_TaskUsers FOREIGN KEY (user_id)
+     REFERENCES taskflow.users (user_id) 
+);
+
+-- Tabela timeTable
+CREATE TABLE taskflow.timeLog (
+  id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+  user_id INT NOT NULL,
+  task_id INT,
+  updated_at DATETIME DEFAULT GETDATE() NOT NULL,
+  created_at DATETIME DEFAULT GETDATE() NOT NULL,
+
+  CONSTRAINT FK_TimeLogUsers FOREIGN KEY (user_id) 
+    REFERENCES taskflow.users (user_id),
+  CONSTRAINT FK_TimeLogTask FOREIGN KEY (task_id) 
+    REFERENCES taskflow.task (task_id) ON DELETE CASCADE
 );
 
 
+select * from taskFlow.task
+select * from taskFlow.category
+select * from taskFlow.users
+select * from taskFlow.timeLog
