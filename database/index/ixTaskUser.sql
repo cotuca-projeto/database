@@ -2,6 +2,8 @@
 
 CREATE INDEX IxUsersEmail ON taskflow.users (email);
 
+CREATE INDEX IxUsersUsername ON taskflow.users (username);
+
 CREATE INDEX IxCategoryUserID ON taskflow.category (user_id);
 
 
