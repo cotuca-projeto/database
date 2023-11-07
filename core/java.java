@@ -1,1 +1,0 @@
-// o Prof ainda vai disponibilizar para uso uma classe para conexão com o banco de dados completa.
