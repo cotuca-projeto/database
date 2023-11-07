@@ -1,2 +1,2 @@
-# app-java
-Aplicativo em Java que irá ter uma tela gráfica com conexão ao banco de dados
+# Banco de Dados
+Construção do Sistema do Banco de Dados em SQL Server
