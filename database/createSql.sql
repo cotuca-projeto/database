@@ -1,3 +1,5 @@
+CREATE SCHEMA taskFlow;
+
 -- Tabela users
 CREATE TABLE taskflow.users (
   user_id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -5,7 +7,7 @@ CREATE TABLE taskflow.users (
   last_name VARCHAR(50) NOT NULL,
   username VARCHAR(50) UNIQUE  NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
-  password_hash CHAR(64) NOT NULL,
+  password_hash CHAR(64) UNIQUE NOT NULL,
   profile_image IMAGE,
  
 );

@@ -22,6 +22,8 @@ BEGIN
     END CATCH
 END
 
+
+-- Execute
 BEGIN TRY
 EXEC taskFlow.spAddCategory
     @username = 'johndoe', 

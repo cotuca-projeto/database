@@ -37,6 +37,6 @@ GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[taskFlow].[users]') AND type in (N'U'))
 DROP TABLE [taskFlow].[users]
 GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[taskFlow].[timeTable]') AND type in (N'U'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[taskFlow].[timeLog]') AND type in (N'U'))
 DROP TABLE [taskFlow].[timeLog]
 GO

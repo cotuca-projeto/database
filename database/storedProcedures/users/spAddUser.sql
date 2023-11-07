@@ -19,14 +19,15 @@ BEGIN
     END CATCH
 END
 
+-- Execute
 BEGIN TRY
 EXEC taskFlow.spAddUser
-    @first_name = 'John',
+     @first_name = 'John',
     @last_name = 'Doe',
     @username = 'johndoe',
     @email = 'johndoe@example.com',
     @password_hash = 'hashed_password',
-    @profile_image = NULL; -- Pass NULL ou o valor da imagem, se aplicável
+    @profile_image = NULL;  
 END TRY
 begin catch
 	declare @Mensagem nvarchar(2048)
@@ -34,4 +35,8 @@ begin catch
 	print 'Catchou:'+@mensagem
 end catch
 
+select * from taskFlow.users
+
+    
+ 
 
