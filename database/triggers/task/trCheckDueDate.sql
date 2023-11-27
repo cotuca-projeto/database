@@ -17,3 +17,11 @@ BEGIN
     ROLLBACK TRANSACTION;
   END
 END;
+
+
+--CHECA SE A DATA DE ENTREGA É INFERIOR À DATA ATUAL
+
+
+select * from taskFlow.task
+
+INSERT INTO taskFlow.task(user_id,title,description,due_date,priority) VALUES (2,'NewTask','Descrição', '25/11/2023', 1);

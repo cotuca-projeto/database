@@ -13,4 +13,17 @@ BEGIN
 END;
 
 
+-- INSERE NA TABELA DE RELACIONAMENTO timeLog OD DADOS NECESSÁRIOS PARA RELACIONAR UM USUÁRIO A SUA RESPECTIVA DATA DE CREATE/UPDATE
+
+EXEC taskFlow.spAddUser
+    @first_name = 'JohHHn',
+    @last_name = 'DoeEE',
+    @username = 'johndoeEE',
+    @email = 'johndoeEE@example.com',
+    @password_hash = 'hashed_password',
+    @profile_image = NULL; 
+
+SELECT * FROM taskFlow.timeLog
+SELECT * FROM taskFlow.task
+
 

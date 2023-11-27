@@ -18,3 +18,12 @@ BEGIN
 
     END CATCH
 END
+
+SELECT * FROM taskFlow.users
+
+EXEC taskFLow.spUpdateUser 
+    @user_id = 3
+    @first_name = 'Jane', 
+    @last_name = 'Smithhhhh', 
+    @username = 'janesmith',   
+    @email = 'Teste'
