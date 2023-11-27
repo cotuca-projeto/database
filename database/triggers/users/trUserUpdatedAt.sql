@@ -1,5 +1,5 @@
 
-CREATE TRIGGER taskFlow.trUserUpdatedAt
+CREATE OR ALTER TRIGGER taskFlow.trUserUpdatedAt
 ON taskflow.users
 FOR UPDATE
 AS
